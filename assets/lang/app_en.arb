@@ -1,0 +1,18 @@
+{
+    "please_fill_this_field": "Please fill in this field",
+    "enter_valid_password": "Password must contain at least 6 letters or 6 numbers",
+    "enter_valid_email": "Please enter a valid email",
+    "enter_valid_phone": "Mobile phone must be {count} digits",
+    "please_enter_pass": "you should enter password",
+    "confirm_pass_validation": "passwords must be equal",
+    "passwords_do_not_match": "Passwords do not match",
+    "enter_valid_name": "Please enter a valid name",
+    "log_in": "Log in",
+    "no": "No",
+    "yes": "Yes",
+    "user_not_found": "Your account was not found, please sign in again",
+    "un_auth_message": "You Are Not Logged In, Try To Login Again",
+    "network_failure": "Failed To Connect To The Network Please Check Your Internet Connection",
+    "something_went_wrong": "Something Went Wrong",
+    "continue_": "Continue"
+}
