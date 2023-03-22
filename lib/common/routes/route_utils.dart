@@ -7,11 +7,5 @@ class RouteUtils {
     appContext.goNamed(RouteStrings.signIn);
   }
 
-  static void goToBoarding() {
-    appContext.pushNamed(RouteStrings.on_boarding);
-  }
-
-  static void goToHomePage() {
-    appContext.goNamed(RouteStrings.home);
-  }
+   
 }
