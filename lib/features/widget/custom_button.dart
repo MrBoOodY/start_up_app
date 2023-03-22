@@ -1,5 +1,5 @@
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
     this.child,
     this.width,
     this.borderColor,
-    this.color = MyColors.mainColor,
+    this.color = AppColors.mainColor,
     Key? key,
     this.borderRadius = 10,
     this.elevation,

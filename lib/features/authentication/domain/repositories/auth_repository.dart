@@ -1,6 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
 import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
-import 'package:dartz/dartz.dart';
 
 abstract class AuthRepository {
   /// Get My Profile Data from local data source

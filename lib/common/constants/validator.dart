@@ -1,6 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:alfaisal_for_advertising/common/utils.dart';
 import 'package:flutter/services.dart';
+import 'package:alfaisal_for_advertising/common/utils.dart';
 
 enum ValidationType { name, notEmpty, email, validationCode }
 

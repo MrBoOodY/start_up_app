@@ -1,8 +1,8 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
 import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:alfaisal_for_advertising/injection/injection.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final editProfileNameUseCase =
     Provider.autoDispose<EditProfileNameUseCase>((ref) {

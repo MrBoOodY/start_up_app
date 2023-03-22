@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alfaisal_for_advertising">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--Requesting access to images.-->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
    <application
         android:label="alfaisal_for_advertising"
         android:name="${applicationName}"

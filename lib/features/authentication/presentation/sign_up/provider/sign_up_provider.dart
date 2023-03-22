@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alfaisal_for_advertising/common/routes/route_utils.dart';
 import 'package:alfaisal_for_advertising/common/utils.dart';
 import 'package:alfaisal_for_advertising/features/authentication/domain/use_cases/sign_up_use_case.dart';
 import 'package:alfaisal_for_advertising/injection/injection.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userSignUpProvider =
     ChangeNotifierProvider.autoDispose<UserSignUpProvider>((ref) {
@@ -46,7 +46,7 @@ class UserSignUpProvider extends ChangeNotifier {
     );
     Utils.hideLoading();
     result.fold(Utils.handleFailures, (message) async {
-      RouteUtils.goToLoginPage();
+      RouteUtils.goToSignInPage();
       return;
     });
   }

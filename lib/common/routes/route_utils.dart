@@ -1,13 +1,17 @@
-import 'package:alfaisal_for_advertising/common/routes/route_strings.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:alfaisal_for_advertising/common/routes/route_strings.dart';
+import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
 
 class RouteUtils {
-  static void goToLoginPage() {
-    Routes.context.goNamed(RouteStrings.login);
+  static void goToSignInPage() {
+    appContext.goNamed(RouteStrings.signIn);
+  }
+
+  static void goToBoarding() {
+    appContext.pushNamed(RouteStrings.on_boarding);
   }
 
   static void goToHomePage() {
-    Routes.context.goNamed(RouteStrings.home);
+    appContext.goNamed(RouteStrings.home);
   }
 }

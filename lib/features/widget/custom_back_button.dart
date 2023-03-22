@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
@@ -45,7 +45,7 @@ class CustomBackButton extends StatelessWidget {
         ),
         child: Icon(
           isReversed ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
-          color: MyColors.mainColor,
+          color: AppColors.mainColor,
           size: iconSize ?? 0.06.w,
         ),
       ),

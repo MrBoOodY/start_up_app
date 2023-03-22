@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/helpers.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/network_info.dart';
@@ -5,7 +6,6 @@ import 'package:alfaisal_for_advertising/features/authentication/data/data_sourc
 import 'package:alfaisal_for_advertising/features/authentication/data/data_sources/auth_remote_data_source.dart';
 import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
 import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;

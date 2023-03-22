@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
 import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_back_button.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_text.dart';
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         height: kToolbarHeight * 3,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: backgroundColor ?? MyColors.mainColor,
+            color: backgroundColor ?? AppColors.mainColor,
             borderRadius:
                 const BorderRadius.vertical(bottom: Radius.circular(20)),
           ),
@@ -50,8 +50,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       if (title != null)
                         CustomText(
                           title,
-                          style: AppFontStyle.tajawalMediumStyle.copyWith(
-                            fontSize: fontSize ?? FontConstants.fontSize045.w,
+                          style: AppFontStyle.almaraiBoldStyle.copyWith(
+                            fontSize: fontSize ?? 15,
                             color: titleColor ?? Colors.white,
                           ),
                         ),
@@ -62,7 +62,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                         leading!
                       else
                         CustomBackButton(
-                          iconSize: FontConstants.iconSize065.r,
+                          iconSize: 15,
                           isReversed: isReversedBackButton,
                           isRoundedBackButton: isRoundedBackButton,
                         ),
@@ -87,8 +87,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       if (title != null)
                         CustomText(
                           title!,
-                          style: AppFontStyle.tajawalMediumStyle.copyWith(
-                            fontSize: fontSize ?? FontConstants.fontSize045.w,
+                          style: AppFontStyle.almaraiBoldStyle.copyWith(
+                            fontSize: fontSize ?? 15,
                             color: titleColor ?? Colors.white,
                           ),
                         ),

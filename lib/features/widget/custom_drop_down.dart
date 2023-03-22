@@ -1,9 +1,9 @@
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
-import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
-import 'package:alfaisal_for_advertising/features/widget/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
+import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
+import 'package:alfaisal_for_advertising/features/widget/space.dart';
 
 class CustomDropDown extends ConsumerWidget {
   static String? chosenValue;
@@ -22,7 +22,7 @@ class CustomDropDown extends ConsumerWidget {
     this.verticalPadding,
     this.icon = const Icon(
       Icons.keyboard_arrow_down,
-      color: MyColors.mainColor,
+      color: AppColors.mainColor,
       size: 25,
     ),
     this.required = false,
@@ -57,7 +57,7 @@ class CustomDropDown extends ConsumerWidget {
             children: [
               Text(
                 label!,
-                style: AppFontStyle.tajawalMediumStyle.copyWith(
+                style: AppFontStyle.almaraiBoldStyle.copyWith(
                   color: Colors.black,
                   fontSize: 15,
                 ),
@@ -73,7 +73,7 @@ class CustomDropDown extends ConsumerWidget {
         ],
         DropdownButtonFormField<String>(
           icon: icon,
-          iconEnabledColor: MyColors.mainColor,
+          iconEnabledColor: AppColors.mainColor,
           decoration: InputDecoration(
             prefixIcon: prefix == null
                 ? null
@@ -82,7 +82,7 @@ class CustomDropDown extends ConsumerWidget {
                     padding: EdgeInsets.all(0.01.w),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: MyColors.mainColor,
+                        color: AppColors.mainColor,
                       ),
                       shape: BoxShape.circle,
                     ),
@@ -90,7 +90,7 @@ class CustomDropDown extends ConsumerWidget {
                         ? Icon(
                             prefix!,
                             color: prefixColor,
-                            size: FontConstants.fontSize04.r,
+                            size: 15,
                           )
                         : Image.asset(
                             prefix,
@@ -102,39 +102,39 @@ class CustomDropDown extends ConsumerWidget {
             focusedBorder: border ??
                 OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: borderColor ?? MyColors.textFieldBorderColor,
+                      color: borderColor ?? AppColors.textFieldBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(5)),
             enabledBorder: border ??
                 OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: borderColor ?? MyColors.textFieldBorderColor,
+                      color: borderColor ?? AppColors.textFieldBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(borderRadius!)),
             border: border ??
                 OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: borderColor ?? MyColors.textFieldBorderColor,
+                      color: borderColor ?? AppColors.textFieldBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(borderRadius!)),
             disabledBorder: border ??
                 OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: borderColor ?? MyColors.textFieldBorderColor,
+                      color: borderColor ?? AppColors.textFieldBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(borderRadius!)),
             errorBorder: border ??
                 OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: borderColor ?? MyColors.textFieldBorderColor,
+                      color: borderColor ?? AppColors.textFieldBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(borderRadius!)),
-            fillColor: fillColor ?? MyColors.textFieldBorderColor,
+            fillColor: fillColor ?? AppColors.textFieldBorderColor,
             filled: fillColor != null,
           ),
           value:
@@ -144,8 +144,8 @@ class CustomDropDown extends ConsumerWidget {
               value: value,
               child: Text(
                 value,
-                style: AppFontStyle.tajawalRegularStyle.copyWith(
-                  color: MyColors.textColor,
+                style: AppFontStyle.almaraiRegularStyle.copyWith(
+                  color: AppColors.textColor,
                   fontSize: 15,
                 ),
               ),
@@ -156,7 +156,7 @@ class CustomDropDown extends ConsumerWidget {
               ? null
               : Text(
                   hint!,
-                  style: AppFontStyle.tajawalMediumStyle.copyWith(
+                  style: AppFontStyle.almaraiBoldStyle.copyWith(
                     fontSize: 15,
                     color: const Color(0xff5B5B5B),
                   ),

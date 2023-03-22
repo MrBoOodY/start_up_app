@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:alfaisal_for_advertising/common/constants/urls.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/exception.dart';
 import 'package:alfaisal_for_advertising/features/authentication/data/data_sources/auth_local_data_source.dart';
 import 'package:alfaisal_for_advertising/injection/injection.dart';
-import 'package:dio/dio.dart';
 // ignore: depend_on_referenced_packages
 import 'package:requests_inspector/requests_inspector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

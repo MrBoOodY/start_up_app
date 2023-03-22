@@ -1,5 +1,5 @@
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; 
 
 class HorizontalSpace extends StatelessWidget {
   const HorizontalSpace({Key? key, required this.value}) : super(key: key);

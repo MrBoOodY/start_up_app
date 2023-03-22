@@ -14,7 +14,7 @@ class Auth extends _$Auth {
 
   /// clear user
   static resetUser() async {
-    RouteUtils.goToLoginPage();
+    RouteUtils.goToSignInPage();
     HiveHelper().resetUser();
   }
 

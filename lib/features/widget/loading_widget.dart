@@ -1,10 +1,10 @@
 // 🎯 Dart imports:
+import 'package:flutter/material.dart';
 // 🐦 Flutter imports:
 import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key, this.color = MyColors.mainColor})
+  const LoadingWidget({Key? key, this.color = AppColors.mainColor})
       : super(key: key);
 
   final Color color;

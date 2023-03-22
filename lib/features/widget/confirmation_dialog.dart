@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
-import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
 import 'package:alfaisal_for_advertising/common/utils.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_button.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_text.dart';
-import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ConfirmationDialog extends StatelessWidget {
@@ -36,19 +35,18 @@ class ConfirmationDialog extends StatelessWidget {
             ),
           CustomText(title,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: FontConstants.fontSize06.r, color: Colors.black)),
+              style: const TextStyle(fontSize: 15, color: Colors.black)),
           const SizedBox(height: 20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                  color: MyColors.mainColor,
+                  color: AppColors.mainColor,
                   elevation: 2,
                   child: CustomText(
                     Utils.localization?.no,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: FontConstants.fontSize045.r,
+                          fontSize: 15,
                           color: Colors.white,
                         ),
                   ),
@@ -57,7 +55,7 @@ class ConfirmationDialog extends StatelessWidget {
                   }),
               const SizedBox(width: 20.0),
               CustomButton(
-                color: MyColors.backgroundColor,
+                color: AppColors.backgroundColor,
                 elevation: 2,
                 onPressed: () {
                   Utils.hideCustomDialog(name: title);
@@ -66,7 +64,7 @@ class ConfirmationDialog extends StatelessWidget {
                 child: CustomText(
                   Utils.localization?.yes,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: FontConstants.fontSize045.r,
+                        fontSize: 15,
                         color: Colors.black,
                       ),
                 ),

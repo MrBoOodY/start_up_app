@@ -1,14 +1,14 @@
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
 
 import 'font_manager.dart';
 
 ThemeData get applicationTheme => ThemeData(
-      scaffoldBackgroundColor: MyColors.backgroundColor,
+      scaffoldBackgroundColor: AppColors.backgroundColor,
 
       // Main Color
-      primaryColor: MyColors.mainColor,
+      primaryColor: AppColors.mainColor,
 
       primaryColorDark: Colors.black,
       disabledColor: Colors.grey,
@@ -22,7 +22,7 @@ ThemeData get applicationTheme => ThemeData(
         ),
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
-        titleTextStyle: AppFontStyle.tajawalMediumStyle,
+        titleTextStyle: AppFontStyle.almaraiBoldStyle,
         centerTitle: true,
       ),
 
@@ -33,14 +33,14 @@ ThemeData get applicationTheme => ThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          textStyle: AppFontStyle.tajawalRegularStyle,
-          backgroundColor: MyColors.mainColor,
+          textStyle: AppFontStyle.almaraiRegularStyle,
+          backgroundColor: AppColors.mainColor,
         ),
       ),
 
       // Text Theme
 
       textTheme: TextTheme(
-        bodySmall: AppFontStyle.tajawalRegularStyle,
+        bodySmall: AppFontStyle.almaraiRegularStyle,
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alfaisal_for_advertising/common/constants/assets.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
 import 'package:alfaisal_for_advertising/common/utils.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
@@ -34,7 +34,7 @@ class CustomCachedNetworkImage extends StatelessWidget {
             ? Image.asset(IconsAssets.logo)
             : Icon(
                 Icons.flag,
-                size: 25.femW,
+                size: 25.sp,
               ),
       ),
     );

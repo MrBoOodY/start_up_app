@@ -1,5 +1,5 @@
 import 'package:alfaisal_for_advertising/common/routes/route_utils.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes.dart';
+import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
 import 'package:alfaisal_for_advertising/common/utils.dart';
 import 'package:alfaisal_for_advertising/features/authentication/domain/use_cases/reset_password_use_case.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +20,7 @@ class ResetPasswordProvider {
   );
 
   Future<void> resetPassword({required int userId}) async {
-    FocusScope.of(Routes.context).unfocus();
+    FocusScope.of(appContext).unfocus();
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -33,7 +33,7 @@ class ResetPasswordProvider {
     Utils.hideLoading();
     result.fold(Utils.handleFailures, (message) {
       Utils.showToast(message);
-      RouteUtils.goToLoginPage();
+      RouteUtils.goToSignInPage();
     });
   }
 }

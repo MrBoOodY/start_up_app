@@ -1,7 +1,7 @@
-import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
+import 'package:alfaisal_for_advertising/injection/injection.dart';
 
 import '../../../../common/core_data_source/failure.dart';
 import '../repositories/auth_repository.dart';

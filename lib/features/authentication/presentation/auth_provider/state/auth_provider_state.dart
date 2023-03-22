@@ -1,5 +1,5 @@
-import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
 
 part 'auth_provider_state.freezed.dart';
 

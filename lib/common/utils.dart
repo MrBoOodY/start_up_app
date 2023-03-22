@@ -1,18 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
 import 'package:alfaisal_for_advertising/common/constants/assets.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/common/extensions/screen_size_utils.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes.dart';
+import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
 import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
 import 'package:alfaisal_for_advertising/features/authentication/presentation/auth_provider/provider/auth_provider.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_button.dart';
 import 'package:alfaisal_for_advertising/features/widget/custom_text.dart';
 import 'package:alfaisal_for_advertising/features/widget/loading_widget.dart';
 import 'package:alfaisal_for_advertising/injection/injection.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -28,7 +28,7 @@ class Utils {
             duration: Duration(seconds: duration ?? 4),
             content: CustomText(
               text,
-              style: AppFontStyle.tajawalRegularStyle.copyWith(
+              style: AppFontStyle.almaraiRegularStyle.copyWith(
                 color: textColor ?? Colors.white,
               ),
             ),
@@ -49,7 +49,7 @@ class Utils {
     return isRTL;
   }
 
-  static BuildContext get _context => Routes.context;
+  static BuildContext get _context => appContext;
 
 // stack of dialogs to know if there is a dialog with the same title or not
   static final _allDialogs = <dynamic>[];
@@ -113,7 +113,7 @@ class Utils {
                           },
                           child: CustomText(
                             localization?.continue_,
-                            style: AppFontStyle.tajawalRegularStyle.copyWith(
+                            style: AppFontStyle.almaraiRegularStyle.copyWith(
                               color: Colors.white,
                             ),
                           ),
@@ -297,8 +297,8 @@ class Utils {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(0.07.w),
-            topLeft: Radius.circular(0.07.w)),
+            topRight: Radius.circular(0.07.r),
+            topLeft: Radius.circular(0.07.r)),
       ),
       isDismissible: true,
       context: _context,
@@ -318,7 +318,7 @@ class Utils {
             ListTile(
               leading: const Icon(
                 Icons.image_outlined,
-                color: MyColors.mainColor,
+                color: AppColors.mainColor,
               ),
               title: const CustomText('Utils.localization?.images'),
               onTap: () {

@@ -1,7 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:alfaisal_for_advertising/common/constants/urls.dart';
 import 'package:alfaisal_for_advertising/common/core_data_source/helpers.dart';
 import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
-import 'package:dartz/dartz.dart';
 
 import '../../../../common/core_data_source/dio_helper/dio_helper.dart';
 

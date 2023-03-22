@@ -33,11 +33,11 @@ class LottieConfirmationDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
-                color: MyColors.mainColor,
+                color: AppColors.mainColor,
                 elevation: 2,
                 child: CustomText(
                   Utils.localization?.no,
-                  style: AppFontStyle.tajawalMediumStyle.copyWith(
+                  style: AppFontStyle.almaraiBoldStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -46,7 +46,7 @@ class LottieConfirmationDialog extends StatelessWidget {
                 }),
             const SizedBox(width: 20.0),
             CustomButton(
-              color: MyColors.backgroundColor,
+              color: AppColors.backgroundColor,
               elevation: 2,
               onPressed: () {
                 Utils.hideCustomDialog(name: title);
@@ -54,8 +54,8 @@ class LottieConfirmationDialog extends StatelessWidget {
               },
               child: CustomText(
                 Utils.localization?.yes,
-                style: AppFontStyle.tajawalMediumStyle
-                    .copyWith(color: Colors.black),
+                style:
+                    AppFontStyle.almaraiBoldStyle.copyWith(color: Colors.black),
               ),
             ),
           ],

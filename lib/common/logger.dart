@@ -1,5 +1,5 @@
-import 'package:alfaisal_for_advertising/injection/injection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:alfaisal_for_advertising/injection/injection.dart';
 
 class Logger extends ProviderObserver {
   @override
