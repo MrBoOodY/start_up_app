@@ -7,8 +7,9 @@ part 'hive_helper.g.dart';
 
 @riverpod
 class HiveHelper extends _$HiveHelper {
+  static final HiveHelper _singleton = HiveHelper._();
   HiveHelper._();
-  factory HiveHelper() => HiveHelper._();
+  factory HiveHelper() => _singleton;
   Box<User>? _userBox;
   Box<String>? _userTokenBox;
   Box<bool>? _darkModeBox;
