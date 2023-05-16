@@ -1,4 +1,4 @@
-name: alfaisal_for_advertising
+name: start_up_app
 description: A new Flutter project.
 
 publish_to: 'none' 
@@ -21,16 +21,14 @@ dependencies:
   logger: ^1.1.0 
   cupertino_icons: ^1.0.2
   dio: ^5.0.3
-  sentry_flutter: ^6.20.1  
+  sentry_flutter: ^7.5.2  
   hive_flutter: ^1.1.0
-  hive: ^2.2.3
-  internet_connection_checker_plus: ^1.0.1
+  hive: ^2.2.3 
   shimmer: ^2.0.0
   cached_network_image: ^3.2.3
-  flutter_secure_storage: ^7.0.1
-  intl: ^0.17.0
-  dartz: ^0.10.1
-  go_router: ^6.2.0
+  flutter_secure_storage: ^8.0.0
+  intl: ^0.18.0 
+  go_router: ^7.0.1
   flutter_native_splash: ^2.2.16 
   lottie: ^2.3.0
   flutter_screenutil: ^5.7.0
@@ -39,12 +37,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter 
   flutter_lints: ^2.0.0 
-  custom_lint: ^0.2.12
-  freezed: ^2.3.2 
-  riverpod_generator: ^2.0.0
-  riverpod_lint: ^1.1.2 
+  custom_lint: ^0.4.0
+  freezed: ^2.3.4
+  riverpod_generator: ^2.2.3 
+  riverpod_lint: ^1.3.2 
   build_runner: ^2.3.3
-  requests_inspector: ^2.3.5 
+  requests_inspector: ^3.0.0 
   json_serializable: ^6.6.1
 
 flutter: 

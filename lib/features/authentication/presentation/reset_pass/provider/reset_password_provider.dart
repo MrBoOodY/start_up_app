@@ -1,39 +1,33 @@
-import 'package:alfaisal_for_advertising/common/routes/route_utils.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
-import 'package:alfaisal_for_advertising/common/utils.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/use_cases/reset_password_use_case.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/common/extensions/async_value_extension.dart';
+import 'package:start_up_app/common/routes/route_utils.dart';
+import 'package:start_up_app/common/utils.dart';
+import 'package:start_up_app/features/authentication/domain/use_cases/reset_password_use_case.dart';
 
-final resetPasswordProvider = Provider.autoDispose(
-    (ref) => ResetPasswordProvider(ref.read(resetPasswordUserUseCase)));
+part 'reset_password_provider.g.dart';
 
-class ResetPasswordProvider {
-  final ResetPasswordUseCase _resetPasswordUserUseCase;
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
-  FocusNode passwordFocus = FocusNode();
-  FocusNode confirmPasswordFocus = FocusNode();
-  final formKey = GlobalKey<FormState>();
-  ResetPasswordProvider(
-    this._resetPasswordUserUseCase,
-  );
+@riverpod
+class ResetPasswordProvider extends _$ResetPasswordProvider {
+  @override
+  void build() {
+    return;
+  }
 
-  Future<void> resetPassword({required int userId}) async {
-    FocusScope.of(appContext).unfocus();
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    Utils.showLoading();
-    final result = await _resetPasswordUserUseCase(
-      userId: userId,
-      password: password.text,
-    );
-    Utils.hideLoading();
-    result.fold(Utils.handleFailures, (message) {
-      Utils.showToast(message);
-      RouteUtils.goToSignInPage();
-    });
+  Future<void> resetPassword(
+      {required int userId, required String password}) async {
+    final utils = ref.read(utilsProvider);
+    utils.showLoading();
+    final result =
+        await AsyncValue.guard(() => ref.read(resetPasswordUseCaseProvider(
+              userId: userId,
+              password: password,
+            ).future));
+    utils.hideLoading();
+    result.handleErrorOrData(
+        handleData: () {
+          utils.showToast(result.value ?? '');
+          ref.read(routeUtilsProvider.notifier).goToSignInPage();
+        },
+        ref: ref);
   }
 }

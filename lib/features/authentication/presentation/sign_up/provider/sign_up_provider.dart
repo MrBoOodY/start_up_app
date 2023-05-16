@@ -1,53 +1,41 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alfaisal_for_advertising/common/routes/route_utils.dart';
-import 'package:alfaisal_for_advertising/common/utils.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/use_cases/sign_up_use_case.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/common/extensions/async_value_extension.dart';
+import 'package:start_up_app/common/routes/route_utils.dart';
+import 'package:start_up_app/common/utils.dart';
+import 'package:start_up_app/features/authentication/domain/use_cases/sign_up_use_case.dart';
 
-final userSignUpProvider =
-    ChangeNotifierProvider.autoDispose<UserSignUpProvider>((ref) {
-  return UserSignUpProvider(ref.read(signUpUserUseCaseProvider));
-});
+part 'sign_up_provider.g.dart';
 
-class UserSignUpProvider extends ChangeNotifier {
-  final SignUpUseCase _signUpUseCase;
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController country = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
-  bool agree = false;
-  FocusNode nameFocus = FocusNode();
-  FocusNode phoneFocus = FocusNode();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
-  FocusNode confirmPasswordFocus = FocusNode();
-  final formKey = GlobalKey<FormState>();
-
-  UserSignUpProvider(this._signUpUseCase);
-
-  toggleAgreement(bool? value) {
-    agree = value!;
-    notifyListeners();
+@riverpod
+class SignUpController extends _$SignUpController {
+  @override
+  void build() {
+    return;
   }
 
-  signIn() async {
-    if (!formKey.currentState!.validate()) return;
-    Utils.showLoading();
-    final result = await _signUpUseCase(
-      countryId: -1,
-      email: email.text,
-      name: name.text,
-      password: password.text,
-      confirmPassword: confirmPassword.text,
-      phone: phone.text,
-    );
-    Utils.hideLoading();
-    result.fold(Utils.handleFailures, (message) async {
-      RouteUtils.goToSignInPage();
-      return;
-    });
+  signIn({
+    required String name,
+    required String phone,
+    required String email,
+    required String password,
+    required String confirmPassword,
+    required int countryId,
+  }) async {
+    final utils = ref.read(utilsProvider);
+    utils.showLoading();
+    final result = await AsyncValue.guard(() => ref.read(signUpUseCaseProvider(
+          countryId: -1,
+          email: email,
+          userName: name,
+          password: password,
+          confirmPassword: confirmPassword,
+          phone: phone,
+        ).future));
+    utils.hideLoading();
+    result.handleErrorOrData(
+        handleData: () {
+          ref.read(routeUtilsProvider.notifier).goToSignInPage();
+        },
+        ref: ref);
   }
 }

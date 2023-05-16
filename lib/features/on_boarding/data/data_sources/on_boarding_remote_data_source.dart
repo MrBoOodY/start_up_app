@@ -1,4 +1,4 @@
-import 'package:alfaisal_for_advertising/common/core_data_source/dio_helper/dio_helper.dart';
+import 'package:start_up_app/common/core_data_source/dio_helper.dart';
 
 abstract class OnBoardingRemoteDataSource {}
 

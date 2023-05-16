@@ -1,22 +1,12 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-import '../../../../common/core_data_source/failure.dart';
-import '../repositories/auth_repository.dart';
+part 'remove_account_use_case.g.dart';
 
-final removeAccountUseCase = Provider.autoDispose<RemoveAccountUseCase>((ref) {
-  return RemoveAccountUseCase(repository: ref.read(authRepositoryProvider));
-});
-
-class RemoveAccountUseCase {
-  final AuthRepository repository;
-
-  RemoveAccountUseCase({required this.repository});
-
-  Future<Either<Failure, String>> call({required password}) {
-    return repository.removeAccount(
-      password: password,
-    );
-  }
+@riverpod
+Future<String> removeAccountUseCase(RemoveAccountUseCaseRef ref,
+    {required String password}) {
+  return ref.read(authRepositoryProvider).removeAccount(
+        password: password,
+      );
 }

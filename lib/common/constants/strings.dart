@@ -1,12 +1,19 @@
-class Strings {
-  static const String apiImagePath =
+class AppStrings {
+  static AppStrings? _instance;
+  AppStrings._();
+  static AppStrings get instance {
+    _instance ??= AppStrings._();
+    return _instance!;
+  }
+
+  final String apiImagePath =
       'https://hunter.multi-kw.com/assets/front/images/';
 
-  static const String dateFormatYMD = 'y-MM-dd';
+  final String dateFormatYMD = 'y-MM-dd';
 
-  static const int unAuthorizedStatusCode = 401;
-  static const int successStatusCode = 200;
-  static const int successStatusCode2 = 201;
+  final int unAuthorizedStatusCode = 401;
+  final int successStatusCode = 200;
+  final int successStatusCode2 = 201;
 
-  static const int unVerifiedStatusCode = 403;
+  final int unVerifiedStatusCode = 403;
 }

@@ -1,7 +1,7 @@
-import 'package:alfaisal_for_advertising/common/constants/strings.dart';
+import 'package:start_up_app/common/constants/strings.dart';
 
 extension StringExtension on String? {
   String get fullPathImage {
-    return Strings.apiImagePath + (this ?? '');
+    return AppStrings.instance.apiImagePath + (this ?? '');
   }
 }

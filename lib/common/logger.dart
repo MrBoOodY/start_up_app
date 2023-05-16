@@ -1,26 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
+import 'package:logger/logger.dart';
 
-class Logger extends ProviderObserver {
-  @override
-  void didAddProvider(
-      ProviderBase provider, Object? value, ProviderContainer container) {
-    logger.d(provider.name ?? provider.runtimeType);
-  }
-
-  @override
-  void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
-    logger.d(provider.name ?? provider.runtimeType);
-  }
-
-  @override
-  void didUpdateProvider(
-    ProviderBase<Object?> provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    logger.d(
-        'OLD VALUE \n ${provider.name ?? provider.runtimeType} \n NEW VALUE \n ${newValue.runtimeType}');
-  }
-}
+final logger = Logger(
+  printer: PrettyPrinter(
+      methodCount: 2, // number of method calls to be displayed
+      errorMethodCount: 8, // number of method calls if stacktrace is provided
+      lineLength: 120, // width of the output
+      colors: true, // Colorful log messages
+      printEmojis: true, // Print an emoji for each log message
+      printTime: false // Should each log print contain a timestamp
+      ),
+);

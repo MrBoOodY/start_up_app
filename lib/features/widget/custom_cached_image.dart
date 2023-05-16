@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:alfaisal_for_advertising/common/constants/assets.dart';
-import 'package:alfaisal_for_advertising/common/utils.dart';
+import 'package:start_up_app/common/constants/assets.dart';
+import 'package:start_up_app/common/utils.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
   const CustomCachedNetworkImage(

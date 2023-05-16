@@ -1,13 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-class LogOutUseCase {
-  final AuthRepository repository;
+part 'log_out_use_case.g.dart';
 
-  LogOutUseCase(this.repository);
-
-  Future<Either<Failure, Unit>> call() {
-    return repository.logOut();
-  }
+@riverpod
+Future<void> logOutUseCase(LogOutUseCaseRef ref) {
+  return ref.read(authRepositoryProvider).logOut();
 }

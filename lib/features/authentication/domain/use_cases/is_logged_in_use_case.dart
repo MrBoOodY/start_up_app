@@ -1,11 +1,9 @@
-import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-class IsLoggedInUseCase {
-  final AuthRepository repository;
+part 'is_logged_in_use_case.g.dart';
 
-  IsLoggedInUseCase(this.repository);
-
-  Future<bool> call() async {
-    return await repository.isLoggedIn;
-  }
+@riverpod
+Future<bool> isLoggedInUseCase(IsLoggedInUseCaseRef ref) {
+  return ref.read(authRepositoryProvider).isLoggedIn;
 }

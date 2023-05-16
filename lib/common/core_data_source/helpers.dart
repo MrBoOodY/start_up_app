@@ -1,48 +1,31 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/exception.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/network_info.dart';
+import 'package:start_up_app/common/core_data_source/exception.dart';
+import 'package:start_up_app/common/core_data_source/failure.dart';
 
-class FailureHelper<T> {
-  FailureHelper();
-  Future<Either<Failure, T>> call(
-      Future<T> Function() method, NetworkInfo? networkInfo) async {
-    if (networkInfo == null || await networkInfo.isConnected) {
-      try {
-        return Right(await method());
-      } on ServerException catch (error) {
-        return Left(ServerFailure(message: error.message));
-      } on UnAuthorizedException {
-        return const Left(UnAuthorizedFailure());
-      } on UnVerifiedException {
-        return const Left(UnVerifiedFailure());
-      } on DatabaseException {
-        return const Left(DatabaseFailure());
-      } on SocketException {
-        return const Left(ConnectionFailure());
-      } catch (error) {
-        return Left(ExceptionFailure(message: error.toString()));
-      }
-    } else {
-      return const Left(ConnectionFailure());
-    }
+class FailureHelper {
+  static FailureHelper? _instance;
+  FailureHelper._();
+  static FailureHelper get instance {
+    _instance ??= FailureHelper._();
+    return _instance!;
   }
 
-  Either<Failure, T> notFutureCall(T Function() method) {
+  T call<T>(T Function() method) {
     try {
-      return Right(method());
+      return method();
     } on ServerException catch (error) {
-      return Left(ServerFailure(message: error.message));
+      throw ServerFailure(message: error.message);
     } on UnAuthorizedException {
-      return const Left(UnAuthorizedFailure());
+      throw const UnAuthorizedFailure();
+    } on UnVerifiedException {
+      throw const UnVerifiedFailure();
     } on DatabaseException {
-      return const Left(DatabaseFailure());
+      throw const DatabaseFailure();
     } on SocketException {
-      return const Left(ConnectionFailure());
+      throw const ConnectionFailure();
     } catch (error) {
-      return Left(ExceptionFailure(message: error.toString()));
+      throw ExceptionFailure(message: error.toString());
     }
   }
 }
