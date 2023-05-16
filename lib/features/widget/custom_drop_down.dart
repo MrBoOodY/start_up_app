@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
-import 'package:alfaisal_for_advertising/features/widget/space.dart';
+import 'package:start_up_app/common/constants/app_colors.dart';
+import 'package:start_up_app/common/theme/font_manager.dart';
+import 'package:start_up_app/features/widget/space.dart';
 
 class CustomDropDown extends ConsumerWidget {
   static String? chosenValue;

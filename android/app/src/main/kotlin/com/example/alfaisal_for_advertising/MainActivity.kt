@@ -1,4 +1,4 @@
-package com.example.alfaisal_for_advertising
+package com.example.start_up_app
 
 import io.flutter.embedding.android.FlutterActivity
 

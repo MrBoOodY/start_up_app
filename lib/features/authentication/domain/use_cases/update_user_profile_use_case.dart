@@ -1,31 +1,28 @@
-import 'package:dartz/dartz.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-class UpdateUserProfileUseCase {
-  final AuthRepository repository;
+part 'update_user_profile_use_case.g.dart';
 
-  UpdateUserProfileUseCase(this.repository);
-
-  Future<Either<Failure, String>> call({
-    required String name,
-    required String phone,
-    required String email,
-    String? image,
-    String? password,
-    required int countryId,
-    required int? cityId,
-    required int? areaId,
-  }) {
-    return repository.updateUserProfile(
-      name: name,
-      email: email,
-      phone: phone,
-      image: image,
-      areaId: areaId,
-      cityId: cityId,
-      countryId: countryId,
-      password: password,
-    );
-  }
+@riverpod
+Future<String> updateUserProfileUseCase(
+  UpdateUserProfileUseCaseRef ref, {
+  required String userName,
+  required String phone,
+  required String email,
+  String? image,
+  String? password,
+  required int countryId,
+  required int? cityId,
+  required int? areaId,
+}) {
+  return ref.read(authRepositoryProvider).updateUserProfile(
+        name: userName,
+        email: email,
+        phone: phone,
+        image: image,
+        areaId: areaId,
+        cityId: cityId,
+        countryId: countryId,
+        password: password,
+      );
 }

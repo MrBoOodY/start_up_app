@@ -1,8 +1,18 @@
-import 'package:alfaisal_for_advertising/common/core_data_source/hive_helper/hive_helper.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import "package:start_up_app/common/core_data_source/dio_helper.dart";
 
-abstract class OnBoardingLocalDataSource {}
+part 'on_boarding_local_data_source.g.dart';
 
-class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
-  final HiveHelper hiveHelper;
-  OnBoardingLocalDataSourceImpl({required this.hiveHelper});
+@riverpod
+IOnBoardingLocalDataSource onBoardingLocalDataSource(
+        OnBoardingLocalDataSourceRef ref) =>
+    OnBoardingLocalDataSource(
+      dio: ref.read(dioHelperProvider),
+    );
+
+abstract class IOnBoardingLocalDataSource {}
+
+class OnBoardingLocalDataSource implements IOnBoardingLocalDataSource {
+  final DioHelper dio;
+  OnBoardingLocalDataSource({required this.dio});
 }

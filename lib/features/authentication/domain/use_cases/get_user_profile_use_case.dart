@@ -1,21 +1,10 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/data/models/user/user.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-final getUserProfileUseCase =
-    Provider.autoDispose<GetUserProfileUseCase>((ref) {
-  return GetUserProfileUseCase(repository: ref.read(authRepositoryProvider));
-});
+part 'get_user_profile_use_case.g.dart';
 
-class GetUserProfileUseCase {
-  final AuthRepository repository;
-
-  GetUserProfileUseCase({required this.repository});
-
-  Future<Either<Failure, User>> call() {
-    return repository.getUserProfile();
-  }
+@riverpod
+Future<User> getUserProfileUseCase(GetUserProfileUseCaseRef ref) {
+  return ref.read(authRepositoryProvider).getUserProfile();
 }

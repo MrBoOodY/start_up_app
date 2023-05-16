@@ -1,21 +1,18 @@
-import 'package:dartz/dartz.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
-class SignInUseCase {
-  final AuthRepository repository;
+part 'sign_in_use_case.g.dart';
 
-  SignInUseCase(this.repository);
-
-  Future<Either<Failure, Unit>> call({
-    required String emailAddress,
-    required String password,
-    required int countryId,
-  }) async {
-    return await repository.signIn(
-      email: emailAddress,
-      password: password,
-      countryId: countryId,
-    );
-  }
+@riverpod
+Future<void> signInUseCase(
+  SignInUseCaseRef ref, {
+  required String emailAddress,
+  required String password,
+  required int countryId,
+}) {
+  return ref.read(authRepositoryProvider).signIn(
+        email: emailAddress,
+        password: password,
+        countryId: countryId,
+      );
 }

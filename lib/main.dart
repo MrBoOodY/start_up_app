@@ -1,6 +1,3 @@
-import 'package:alfaisal_for_advertising/common/core_data_source/start_up_functionality/start_up_functionality.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
-import 'package:alfaisal_for_advertising/common/theme/theme_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,11 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: depend_on_referenced_packages
 import 'package:requests_inspector/requests_inspector.dart';
+import 'package:start_up_app/common/core_data_source/start_up_functionality.dart';
+import 'package:start_up_app/common/routes/routes.dart';
+import 'package:start_up_app/common/theme/theme_manager.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  // if (DateTime.now().compareTo(DateTime(2023, 3, 25)) < 0) {
   runApp(ProviderScope(
     child: RequestsInspector(
       enabled: kDebugMode,
@@ -37,9 +36,6 @@ void main() async {
       ),
     ),
   ));
-  // } else {
-  //   runApp(const ProviderScope(child: MaterialApp()));
-  // }
 }
 
 class MyApp extends ConsumerWidget {

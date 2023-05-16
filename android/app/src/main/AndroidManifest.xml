@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.alfaisal_for_advertising">
+    package="com.example.start_up_app">
     <uses-permission android:name="android.permission.INTERNET" />
     <!--Requesting access to images.-->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
    <application
-        android:label="alfaisal_for_advertising"
+        android:label="start_up_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

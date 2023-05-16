@@ -3,27 +3,41 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
-import 'package:alfaisal_for_advertising/common/constants/assets.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/failure.dart';
-import 'package:alfaisal_for_advertising/common/routes/routes/routes.dart';
-import 'package:alfaisal_for_advertising/common/theme/font_manager.dart';
-import 'package:alfaisal_for_advertising/features/authentication/presentation/auth_provider/provider/auth_provider.dart';
-import 'package:alfaisal_for_advertising/features/widget/custom_button.dart';
-import 'package:alfaisal_for_advertising/features/widget/custom_text.dart';
-import 'package:alfaisal_for_advertising/features/widget/loading_widget.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
 import 'package:lottie/lottie.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:start_up_app/common/constants/app_colors.dart';
+import 'package:start_up_app/common/constants/assets.dart';
+import 'package:start_up_app/common/core_data_source/failure.dart';
+import 'package:start_up_app/common/logger.dart';
+import 'package:start_up_app/common/routes/routes.dart';
+import 'package:start_up_app/common/theme/font_manager.dart';
+import 'package:start_up_app/features/authentication/presentation/auth_provider/provider/auth_provider.dart';
+import 'package:start_up_app/features/widget/custom_button.dart';
+import 'package:start_up_app/features/widget/custom_text.dart';
+import 'package:start_up_app/features/widget/loading_widget.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+part 'utils.g.dart';
+
+@riverpod
+Utils utils(UtilsRef ref) {
+  return Utils(ref);
+}
+
 class Utils {
-  static void showToast(String text,
+  final UtilsRef ref;
+  late final BuildContext context;
+  Utils(this.ref) {
+    context = ref.watch(contextProvider);
+  }
+
+  void showToast(String text,
           {Color? backgroundColor, Color? textColor, int? duration}) =>
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        ScaffoldMessenger.of(_context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            width: MediaQuery.of(_context).size.width - 50,
+            width: MediaQuery.of(context).size.width - 50,
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: duration ?? 4),
             content: CustomText(
@@ -40,24 +54,20 @@ class Utils {
         );
       });
 
-  static void showErrorToast(String text, {int? duration}) =>
+  void showErrorToast(String text, {int? duration}) =>
       showToast(text, backgroundColor: Colors.red.withOpacity(0.7));
 
-  static AppLocalizations? get localization => AppLocalizations.of(_context);
-  static bool get isRTL {
-    final bool isRTL = (localization?.localeName ?? 'ar') == 'ar';
+  bool isRTL() {
+    final bool isRTL = (AppLocalizations.of(context)!.localeName) == 'ar';
     return isRTL;
   }
 
-  static BuildContext get _context => appContext;
-
 // stack of dialogs to know if there is a dialog with the same title or not
-  static final _allDialogs = <dynamic>[];
+  final _allDialogs = <dynamic>[];
 // add dialog to _allDialog to know if there is a dialog with the same title or not
-  static showEnhancedDialog(
-      {required String dialogName, required Function dialog}) {
+  showEnhancedDialog({required String dialogName, required Function dialog}) {
     if (_allDialogs.isNotEmpty && _allDialogs.last == dialogName) {
-      Navigator.pop(_context);
+      Navigator.pop(context);
     } else {
       _allDialogs.add(dialogName);
     }
@@ -65,29 +75,30 @@ class Utils {
   }
 
 // remove dialog from _allDialog
-  static removeEnhancedDialog({required String dialogName}) {
+  removeEnhancedDialog({required String dialogName}) {
     if (_allDialogs.contains(dialogName)) {
       _allDialogs.remove(dialogName);
-      Navigator.pop(_context);
+      Navigator.pop(context);
     }
   }
 
 // clear all dialogs from _allDialog
-  static clearDialogs() {
+  clearDialogs() {
     _allDialogs.clear();
   }
 
 // custom Network dialog
-  static showNetworkDialog({bool isLoading = false}) {
-    ScaffoldMessenger.of(_context).clearSnackBars();
+  showNetworkDialog({bool isLoading = false}) {
+    ScaffoldMessenger.of(context).clearSnackBars();
     showEnhancedDialog(
-      dialogName: localization?.network_failure ?? '',
+      dialogName: AppLocalizations.of(context)!.network_failure,
       dialog: () => showDialog(
-        context: _context,
+        context: context,
         builder: (ctx) {
           return WillPopScope(
             onWillPop: () async {
-              hideCustomDialog(name: localization?.network_failure ?? '');
+              hideCustomDialog(
+                  name: AppLocalizations.of(context)!.network_failure);
               return false;
             },
             child: AlertDialog(
@@ -98,7 +109,7 @@ class Utils {
                     LottieBuilder.asset(AnimationsAssets.noInternet),
                     const SizedBox(height: 10.0),
                     CustomText(
-                      localization?.network_failure ?? '',
+                      AppLocalizations.of(context)!.network_failure,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 20.0),
@@ -109,10 +120,11 @@ class Utils {
                           color: Colors.blue,
                           onPressed: () {
                             hideCustomDialog(
-                                name: localization?.network_failure ?? '');
+                                name: AppLocalizations.of(context)!
+                                    .network_failure);
                           },
                           child: CustomText(
-                            localization?.continue_,
+                            AppLocalizations.of(context)!.continue_,
                             style: AppFontStyle.almaraiRegularStyle.copyWith(
                               color: Colors.white,
                             ),
@@ -129,7 +141,7 @@ class Utils {
   }
 
 //show Custom Dialogs
-  static showCustomDialog(
+  showCustomDialog(
       {required Widget content,
       List<Widget>? actions,
       required String name,
@@ -140,7 +152,7 @@ class Utils {
     showEnhancedDialog(
       dialogName: name,
       dialog: () => showDialog(
-        context: _context,
+        context: context,
         builder: (ctx) {
           return WillPopScope(
             onWillPop: () async {
@@ -153,7 +165,7 @@ class Utils {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(_context).size.width *
+                  width: MediaQuery.of(context).size.width *
                       (widthPercent ?? 90) /
                       100,
                   child: Material(
@@ -193,7 +205,7 @@ class Utils {
   }
 
   ///Handle pagination
-  static void handlePagination(
+  void handlePagination(
       {required ScrollController controller, required Function call}) {
     // ignore: invalid_use_of_protected_member
     if (!controller.hasListeners) {
@@ -213,15 +225,15 @@ class Utils {
   }
 
 //hide Custom Dialogs
-  static hideCustomDialog({required String name}) {
+  hideCustomDialog({required String name}) {
     removeEnhancedDialog(dialogName: name);
   }
 
   /// data sources failures handler
-  static void handleFailures(Failure failure) {
+  void handleFailures(Failure failure) {
     switch (failure.runtimeType) {
       case ExceptionFailure:
-        showErrorToast(localization?.something_went_wrong ?? '');
+        showErrorToast(AppLocalizations.of(context)!.something_went_wrong);
         logger.e(failure.runtimeType);
         logger.e(failure.message);
 
@@ -231,14 +243,14 @@ class Utils {
 
         break;
       case UnAuthorizedFailure:
-        Auth.resetUser();
-        showErrorToast(localization?.un_auth_message ?? '');
+        ref.read(authProvider.notifier).resetUser();
+        showErrorToast(AppLocalizations.of(context)!.un_auth_message);
 
         break;
       case UnVerifiedFailure:
         break;
       case DatabaseFailure:
-        showErrorToast(localization?.user_not_found ?? '');
+        showErrorToast(AppLocalizations.of(context)!.user_not_found);
 
         break;
       default:
@@ -249,7 +261,7 @@ class Utils {
   }
 
   /// get current Country icon
-  static String countryCodeToEmoji(String countryCode) {
+  String countryCodeToEmoji(String countryCode) {
     countryCode = countryCode.replaceAll('+', '');
     // 0x41 is Letter A
     // 0x1F1E6 is Regional Indicator Symbol Letter A
@@ -263,17 +275,17 @@ class Utils {
   }
 
   /// method for hide loading
-  static void hideLoading() {
+  void hideLoading() {
     removeEnhancedDialog(dialogName: 'loading');
   }
 
   /// method for show loading
-  static void showLoading({String? message}) {
-    ScaffoldMessenger.of(_context).hideCurrentSnackBar();
+  void showLoading({String? message}) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     showEnhancedDialog(
         dialogName: 'loading',
         dialog: () => showDialog(
-            context: _context,
+            context: context,
             barrierDismissible: false,
             builder: (ctx) {
               return WillPopScope(
@@ -292,7 +304,7 @@ class Utils {
   }
 
   ///Home bottom sheet
-  static homeBottomSheet({required Widget child}) {
+  homeBottomSheet({required Widget child}) {
     return showModalBottomSheet(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -301,16 +313,15 @@ class Utils {
             topLeft: Radius.circular(0.07.r)),
       ),
       isDismissible: true,
-      context: _context,
+      context: context,
       builder: (ctx) => child,
     );
   }
 
   // Method to pick multi image or video
-  static Future<List<AssetEntity>?> pickMultiPicOrVideo(
-      {int maxImages = 1}) async {
+  Future<List<AssetEntity>?> pickMultiPicOrVideo({int maxImages = 1}) async {
     bool? isImages = await showModalBottomSheet(
-      context: _context,
+      context: context,
       builder: (context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -320,7 +331,8 @@ class Utils {
                 Icons.image_outlined,
                 color: AppColors.mainColor,
               ),
-              title: const CustomText('Utils.localization?.images'),
+              title: const CustomText(
+                  'Utils.AppLocalizations.of(context)!.images'),
               onTap: () {
                 Navigator.pop(context, true);
               },
@@ -336,22 +348,24 @@ class Utils {
     if (isImages == null) return null;
 
     try {
-      // ignore: use_build_context_synchronously
-      return await AssetPicker.pickAssets(
-        _context,
-        pickerConfig: AssetPickerConfig(
-          requestType: isImages ? RequestType.image : RequestType.video,
-          maxAssets: isImages ? maxImages : 1,
-        ),
-      );
+      if (context.mounted) {
+        return await AssetPicker.pickAssets(
+          context,
+          pickerConfig: AssetPickerConfig(
+            requestType: isImages ? RequestType.image : RequestType.video,
+            maxAssets: isImages ? maxImages : 1,
+          ),
+        );
+      }
     } catch (e) {
       logger.e(e);
       rethrow;
     }
+    return null;
   }
 
   //   method to get text directionality
-  static TextDirection getDirection(String text) {
+  TextDirection getDirection(String text) {
     final string = text.trim();
     if (string.isEmpty) return TextDirection.ltr;
     final firstUnit = string.codeUnitAt(0);

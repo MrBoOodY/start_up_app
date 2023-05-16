@@ -1,9 +1,9 @@
-import 'package:alfaisal_for_advertising/common/core_data_source/hive_helper/hive_helper.dart';
-import 'package:alfaisal_for_advertising/common/routes/route_utils.dart';
-import 'package:alfaisal_for_advertising/common/utils.dart';
-import 'package:alfaisal_for_advertising/features/authentication/presentation/auth_provider/state/auth_provider_state.dart';
-import 'package:alfaisal_for_advertising/injection/injection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/common/core_data_source/hive/hive_helper.dart';
+import 'package:start_up_app/common/routes/route_utils.dart';
+import 'package:start_up_app/features/authentication/domain/use_cases/get_current_user_use_case.dart';
+import 'package:start_up_app/features/authentication/domain/use_cases/is_logged_in_use_case.dart';
+import 'package:start_up_app/features/authentication/presentation/auth_provider/state/auth_provider_state.dart';
 
 part 'auth_provider.g.dart';
 
@@ -13,22 +13,20 @@ class Auth extends _$Auth {
   AuthProviderState build() => const AuthProviderState();
 
   /// clear user
-  static resetUser() async {
-    RouteUtils.goToSignInPage();
-    HiveHelper().resetUser();
+  resetUser() async {
+    ref.read(routeUtilsProvider.notifier).goToSignInPage();
+    ref.read(hiveHelperProvider.notifier).resetUser();
   }
 
   /// get user
-  void getCurrentUser() {
+  Future<void> getCurrentUser() async {
     if (!state.isLoggedIn) return;
-    final result = ref.read(getCurrentUserUseCaseProvider).call();
-    result.fold(Utils.handleFailures, (user) {
-      state = state.copyWith(currentUser: user);
-    });
+    state =
+        state.copyWith(currentUser: ref.read(getCurrentUserUseCaseProvider));
   }
 
   Future<void> getLoginStatus() async {
     state = state.copyWith(
-        isLoggedIn: await ref.read(isLoggedInUseCaseProvider).call());
+        isLoggedIn: await ref.read(isLoggedInUseCaseProvider.future));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:alfaisal_for_advertising/common/constants/app_colors.dart';
+import 'package:start_up_app/common/constants/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({

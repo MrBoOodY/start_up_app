@@ -23,6 +23,7 @@ mixin _$User {
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get surname => throw _privateConstructorUsedError;
+  String? get accessToken => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get img => throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $UserCopyWith<$Res> {
       {int? id,
       String? name,
       String? surname,
+      String? accessToken,
       String? email,
       String? phone,
       String? img,
@@ -94,6 +96,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = freezed,
     Object? name = freezed,
     Object? surname = freezed,
+    Object? accessToken = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? img = freezed,
@@ -126,6 +129,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       surname: freezed == surname
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -217,6 +224,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {int? id,
       String? name,
       String? surname,
+      String? accessToken,
       String? email,
       String? phone,
       String? img,
@@ -250,6 +258,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? id = freezed,
     Object? name = freezed,
     Object? surname = freezed,
+    Object? accessToken = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? img = freezed,
@@ -282,6 +291,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       surname: freezed == surname
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -370,6 +383,7 @@ class _$_User implements _User {
       {this.id,
       this.name,
       this.surname,
+      this.accessToken,
       this.email,
       this.phone,
       this.img,
@@ -398,6 +412,8 @@ class _$_User implements _User {
   final String? name;
   @override
   final String? surname;
+  @override
+  final String? accessToken;
   @override
   final String? email;
   @override
@@ -439,7 +455,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, surname: $surname, email: $email, phone: $phone, img: $img, banner: $banner, countryId: $countryId, areaId: $areaId, cityId: $cityId, gender: $gender, birthDay: $birthDay, isShop: $isShop, isNotification: $isNotification, fullPathImage: $fullPathImage, fullPathImageBurner: $fullPathImageBurner, location: $location, whatsapp: $whatsapp, imageBanner: $imageBanner, website: $website, instagram: $instagram, storeActivity: $storeActivity)';
+    return 'User(id: $id, name: $name, surname: $surname, accessToken: $accessToken, email: $email, phone: $phone, img: $img, banner: $banner, countryId: $countryId, areaId: $areaId, cityId: $cityId, gender: $gender, birthDay: $birthDay, isShop: $isShop, isNotification: $isNotification, fullPathImage: $fullPathImage, fullPathImageBurner: $fullPathImageBurner, location: $location, whatsapp: $whatsapp, imageBanner: $imageBanner, website: $website, instagram: $instagram, storeActivity: $storeActivity)';
   }
 
   @override
@@ -450,6 +466,8 @@ class _$_User implements _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.surname, surname) || other.surname == surname) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.img, img) || other.img == img) &&
@@ -488,6 +506,7 @@ class _$_User implements _User {
         id,
         name,
         surname,
+        accessToken,
         email,
         phone,
         img,
@@ -528,6 +547,7 @@ abstract class _User implements User {
       {final int? id,
       final String? name,
       final String? surname,
+      final String? accessToken,
       final String? email,
       final String? phone,
       final String? img,
@@ -556,6 +576,8 @@ abstract class _User implements User {
   String? get name;
   @override
   String? get surname;
+  @override
+  String? get accessToken;
   @override
   String? get email;
   @override

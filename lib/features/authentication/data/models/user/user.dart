@@ -9,6 +9,7 @@ abstract class User with _$User {
     final int? id,
     final String? name,
     final String? surname,
+    final String? accessToken,
     final String? email,
     final String? phone,
     final String? img,

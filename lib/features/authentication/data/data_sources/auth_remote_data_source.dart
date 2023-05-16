@@ -1,13 +1,18 @@
-import 'package:dartz/dartz.dart';
-import 'package:alfaisal_for_advertising/common/constants/urls.dart';
-import 'package:alfaisal_for_advertising/common/core_data_source/helpers.dart';
-import 'package:alfaisal_for_advertising/features/authentication/data/models/user/user.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:start_up_app/common/constants/urls.dart';
+import "package:start_up_app/common/core_data_source/dio_helper.dart";
+import 'package:start_up_app/common/core_data_source/helpers.dart';
+import 'package:start_up_app/features/authentication/data/models/user/user.dart';
 
-import '../../../../common/core_data_source/dio_helper/dio_helper.dart';
+part 'auth_remote_data_source.g.dart';
 
-abstract class AuthRemoteDataSource {
-  Future<Unit> saveDeviceToken({required String deviceToken});
+@riverpod
+IAuthRemoteDataSource authRemoteDataSource(AuthRemoteDataSourceRef ref) =>
+    AuthRemoteDataSource(
+      dio: ref.read(dioHelperProvider),
+    );
 
+abstract class IAuthRemoteDataSource {
   /// sign up new user
   Future<String> signUpUser({
     required String name,
@@ -55,7 +60,7 @@ abstract class AuthRemoteDataSource {
   Future<int> forgetPassword({
     required String mobile,
   });
-  Future<Unit> verifyCode({
+  Future<void> verifyCode({
     required int userId,
     required String code,
   });
@@ -65,9 +70,9 @@ abstract class AuthRemoteDataSource {
   });
 }
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+class AuthRemoteDataSource implements IAuthRemoteDataSource {
   final DioHelper dio;
-  AuthRemoteDataSourceImpl({required this.dio});
+  AuthRemoteDataSource({required this.dio});
 
   @override
   Future<User> signIn({
@@ -163,7 +168,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Unit> verifyCode({
+  Future<void> verifyCode({
     required int userId,
     required String code,
   }) async {
@@ -175,7 +180,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           'code': code,
         },
       );
-      return unit;
     } catch (error) {
       rethrow;
     }
@@ -217,21 +221,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'password': password,
       });
       return response['message'];
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Unit> saveDeviceToken({required String deviceToken}) async {
-    try {
-      await dio.doPostRequest(
-        url: Urls.saveNotificationsToken,
-        data: {
-          'fcm_token': deviceToken,
-        },
-      );
-      return unit;
     } catch (error) {
       rethrow;
     }
