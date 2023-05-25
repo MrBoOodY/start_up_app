@@ -37,90 +37,96 @@ class DioHelper {
   final IAuthLocalDataSource authLocalDataSource;
   DioHelper({required this.dio, required this.authLocalDataSource});
 
-  Future<Map<String, dynamic>> doPostRequest(
-      {required String url, Map<String, dynamic>? data}) async {
-    String? token;
-    try {
-      token = await authLocalDataSource.getUserToken;
-    } catch (_) {}
-
-    if (token != null) {
-      dio.options.headers.addAll({"Authorization": "Bearer $token"});
-    }
-    FormData? formData;
-    if (data != null) {
-      formData = FormData.fromMap(data);
-    }
-    return _handleException(dio.post(url, data: formData));
-  }
-
-  Future<Map<String, dynamic>> doPatchRequest(
-      {required String url, Map<String, dynamic>? data}) async {
-    String? token;
-    try {
-      token = await authLocalDataSource.getUserToken;
-    } catch (_) {}
-
-    if (token != null) {
-      dio.options.headers.addAll({"Authorization": "Bearer $token"});
-    }
-    FormData? formData;
-    if (data != null) {
-      formData = FormData.fromMap(data);
-    }
-    return _handleException(dio.patch(url, data: formData));
-  }
-
-  Future<Map<String, dynamic>> doDeleteRequest(
-      {required String url, Map<String, dynamic>? data}) async {
-    String? token;
-    try {
-      token = await authLocalDataSource.getUserToken;
-    } catch (_) {}
-
-    if (token != null) {
-      dio.options.headers.addAll({"Authorization": "Bearer $token"});
-    }
-    FormData? formData;
-    if (data != null) {
-      formData = FormData.fromMap(data);
-    }
-    return _handleException(dio.delete(url, data: formData));
-  }
-
-  Future<Map<String, dynamic>> doGetRequest({
+  Future<Map<String, dynamic>> doPostRequest({
     required String url,
-    String? baseURL,
-    Map<String, dynamic>? data,
-    bool useAuthIfAvailable = false,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? formData,
+    dynamic data,
   }) async {
     String? token;
     try {
       token = await authLocalDataSource.getUserToken;
     } catch (_) {}
     if (token != null) {
-      dio.options.headers.addAll({"Authorization": "Bearer $token"});
-      if (useAuthIfAvailable) {
-        url = '/auth$url';
-      }
+      dio.options.headers.addAll({"Authorization": token});
     }
 
-    if (baseURL != null) {
-      final Dio newDioBaseUrl = Dio();
-      return _handleException(
-        newDioBaseUrl.get(
-          baseURL + url,
-          queryParameters: data,
-        ),
-      );
-    } else {
-      return _handleException(
-        dio.get(
-          url,
-          queryParameters: data,
-        ),
-      );
+    FormData? form;
+
+    if (formData != null) {
+      form = FormData.fromMap(formData);
     }
+    return _handleException(
+        dio.post(url, data: form ?? data, queryParameters: queryParameters));
+  }
+
+  Future<Map<String, dynamic>> doPatchRequest({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? formData,
+    dynamic data,
+  }) async {
+    String? token;
+    try {
+      token = await authLocalDataSource.getUserToken;
+    } catch (_) {}
+    if (token != null) {
+      dio.options.headers.addAll({"Authorization": token});
+    }
+
+    FormData? form;
+
+    if (formData != null) {
+      form = FormData.fromMap(formData);
+    }
+    return _handleException(
+        dio.patch(url, data: form ?? data, queryParameters: queryParameters));
+  }
+
+  Future<Map<String, dynamic>> doDeleteRequest({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    dynamic data,
+    Map<String, dynamic>? formData,
+  }) async {
+    String? token;
+    try {
+      token = await authLocalDataSource.getUserToken;
+    } catch (_) {}
+    if (token != null) {
+      dio.options.headers.addAll({"Authorization": token});
+    }
+
+    FormData? form;
+
+    if (formData != null) {
+      form = FormData.fromMap(formData);
+    }
+    return _handleException(
+        dio.delete(url, data: form ?? data, queryParameters: queryParameters));
+  }
+
+  Future<Map<String, dynamic>> doGetRequest(
+      {required String url,
+      Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? formData,
+      dynamic data}) async {
+    String? token;
+    try {
+      token = await authLocalDataSource.getUserToken;
+    } catch (_) {}
+    if (token != null) {
+      dio.options.headers.addAll({"Authorization": token});
+    }
+
+    FormData? form;
+
+    if (formData != null) {
+      form = FormData.fromMap(formData);
+    }
+    return _handleException(
+      dio.get(url, data: form ?? data, queryParameters: queryParameters),
+    );
   }
 
   Future<Map<String, dynamic>> _handleException(
