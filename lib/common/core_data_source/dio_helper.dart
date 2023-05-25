@@ -5,10 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:simple_deal/common/constants/urls.dart';
-import 'package:simple_deal/common/core_data_source/exception.dart';
-import 'package:simple_deal/common/logger.dart';
-import 'package:simple_deal/features/authentication/data/data_sources/auth_local_data_source.dart';
+import 'package:start_up_app/common/constants/urls.dart';
+import 'package:start_up_app/common/core_data_source/exception.dart';
+import 'package:start_up_app/common/logger.dart';
+import 'package:start_up_app/features/authentication/data/data_sources/auth_local_data_source.dart';
 
 import '../constants/strings.dart';
 
