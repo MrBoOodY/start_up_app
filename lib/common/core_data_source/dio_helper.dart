@@ -40,6 +40,7 @@ class DioHelper {
   Future<Map<String, dynamic>> doPostRequest({
     required String url,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? formData,
     dynamic data,
   }) async {
     String? token;
@@ -52,8 +53,8 @@ class DioHelper {
 
     FormData? form;
 
-    if (data != null) {
-      form = FormData.fromMap(data);
+    if (formData != null) {
+      form = FormData.fromMap(formData);
     }
     return _handleException(
         dio.post(url, data: form ?? data, queryParameters: queryParameters));
@@ -62,6 +63,7 @@ class DioHelper {
   Future<Map<String, dynamic>> doPatchRequest({
     required String url,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? formData,
     dynamic data,
   }) async {
     String? token;
@@ -74,8 +76,8 @@ class DioHelper {
 
     FormData? form;
 
-    if (data != null) {
-      form = FormData.fromMap(data);
+    if (formData != null) {
+      form = FormData.fromMap(formData);
     }
     return _handleException(
         dio.patch(url, data: form ?? data, queryParameters: queryParameters));
@@ -85,6 +87,7 @@ class DioHelper {
     required String url,
     Map<String, dynamic>? queryParameters,
     dynamic data,
+    Map<String, dynamic>? formData,
   }) async {
     String? token;
     try {
@@ -96,8 +99,8 @@ class DioHelper {
 
     FormData? form;
 
-    if (data != null) {
-      form = FormData.fromMap(data);
+    if (formData != null) {
+      form = FormData.fromMap(formData);
     }
     return _handleException(
         dio.delete(url, data: form ?? data, queryParameters: queryParameters));
@@ -106,6 +109,7 @@ class DioHelper {
   Future<Map<String, dynamic>> doGetRequest(
       {required String url,
       Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? formData,
       dynamic data}) async {
     String? token;
     try {
@@ -117,8 +121,8 @@ class DioHelper {
 
     FormData? form;
 
-    if (data != null) {
-      form = FormData.fromMap(data);
+    if (formData != null) {
+      form = FormData.fromMap(formData);
     }
     return _handleException(
       dio.get(url, data: form ?? data, queryParameters: queryParameters),
