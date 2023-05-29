@@ -11,9 +11,9 @@ class FailureHelper {
     return _instance!;
   }
 
-  T call<T>(T Function() method) {
+  Future<T> call<T>(Future<T> Function() method) async {
     try {
-      return method();
+      return await method();
     } on ServerException catch (error) {
       throw ServerFailure(message: error.message);
     } on UnAuthorizedException {
@@ -24,6 +24,22 @@ class FailureHelper {
       throw const DatabaseFailure();
     } on SocketException {
       throw const ConnectionFailure();
+    } catch (error) {
+      throw ExceptionFailure(message: error.toString());
+    }
+  }
+
+  T callLocally<T>(T Function() method) {
+    try {
+      return method();
+    } on ServerException catch (error) {
+      throw ServerFailure(message: error.message);
+    } on UnAuthorizedException {
+      throw const UnAuthorizedFailure();
+    } on UnVerifiedException {
+      throw const UnVerifiedFailure();
+    } on DatabaseException {
+      throw const DatabaseFailure();
     } catch (error) {
       throw ExceptionFailure(message: error.toString());
     }
