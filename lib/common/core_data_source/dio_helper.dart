@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 // ignore: depend_on_referenced_packages
@@ -164,6 +165,9 @@ class DioHelper {
         throw ServerException(message: errorMessage);
       }
     } on DioError catch (dioError) {
+       if (dioError.error is SocketException) {
+        throw const SocketException('no connection');
+      }
       final responseBody = dioError.response!.data;
       final response = dioError.response!;
       logger.e(response.requestOptions.uri);
