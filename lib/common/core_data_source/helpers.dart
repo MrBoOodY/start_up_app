@@ -11,9 +11,9 @@ class FailureHelper {
     return _instance!;
   }
 
-  T call<T>(T Function() method) {
+  Future<T> call<T>(Future<T> Function() method) async {
     try {
-      return method();
+      return await method();
     } on ServerException catch (error) {
       throw ServerFailure(message: error.message);
     } on UnAuthorizedException {
