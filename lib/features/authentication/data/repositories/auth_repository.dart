@@ -13,14 +13,14 @@ class AuthRepository implements IAuthRepository {
 
   @override
   User getCurrentUser() {
-    return FailureHelper.instance<User>(() {
+    return FailureHelper.instance.callLocally<User>(() {
       return localDataSource.getCurrentUser();
     });
   }
 
   @override
   Future<void> saveUser({required User user}) async {
-    return FailureHelper.instance<void>(() async {
+    return FailureHelper.instance(() async {
       return await localDataSource.saveCurrentUser(
         userModel: user,
       );
@@ -29,7 +29,7 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<User> getUserProfile() async {
-    return FailureHelper.instance<Future<User>>(() async {
+    return FailureHelper.instance(() async {
       return await remoteDataSource.getUserProfile();
     });
   }
@@ -40,7 +40,7 @@ class AuthRepository implements IAuthRepository {
     required String password,
     required int countryId,
   }) async {
-    return FailureHelper.instance<Future<void>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.signIn(
         email: email,
         password: password,
@@ -59,7 +59,7 @@ class AuthRepository implements IAuthRepository {
     required String confirmPassword,
     required int countryId,
   }) async {
-    return FailureHelper.instance<Future<String>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.signUpUser(
         name: name,
         email: email,
@@ -84,7 +84,7 @@ class AuthRepository implements IAuthRepository {
     required int? cityId,
     required int? areaId,
   }) async {
-    return FailureHelper.instance<Future<String>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.updateUserProfile(
         name: name,
         email: email,
@@ -107,7 +107,7 @@ class AuthRepository implements IAuthRepository {
     required int userId,
     required String password,
   }) async {
-    return FailureHelper.instance<Future<String>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.resetPassword(
         userId: userId,
         password: password,
@@ -119,7 +119,7 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> logOut() async {
-    return FailureHelper.instance<Future<void>>(() async {
+    return FailureHelper.instance(() async {
       return localDataSource.logOut();
     });
   }
@@ -129,14 +129,14 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<int> forgetPassword({required String mobile}) async {
-    return FailureHelper.instance<Future<int>>(() async {
+    return FailureHelper.instance(() async {
       return await remoteDataSource.forgetPassword(mobile: mobile);
     });
   }
 
   @override
   Future<String> editProfileName({required String name}) async {
-    return FailureHelper.instance<Future<String>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.updateUserProfile(name: name);
 
       await localDataSource.saveCurrentUser(userModel: result.result);
@@ -146,14 +146,14 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> verifyCode({required int userId, required String code}) async {
-    return FailureHelper.instance<Future<void>>(() async {
+    return FailureHelper.instance(() async {
       await remoteDataSource.verifyCode(userId: userId, code: code);
     });
   }
 
   @override
   Future<String> removeAccount({required String password}) {
-    return FailureHelper.instance<Future<String>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.removeAccount(
         password: password,
       );
@@ -168,7 +168,7 @@ class AuthRepository implements IAuthRepository {
       required String email,
       required String password,
       required int countryId}) {
-    return FailureHelper.instance<Future<User>>(() async {
+    return FailureHelper.instance(() async {
       final result = await remoteDataSource.loginWithSocial(
           name: name,
           phone: phone,
