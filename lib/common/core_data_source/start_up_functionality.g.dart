@@ -22,19 +22,20 @@ final startUpFunctionalityProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef StartUpFunctionalityRef = AutoDisposeFutureProviderRef<void>;
-String _$startUpRefreshHash() => r'bd0a9b83a780da3b8d8c5e7b7446d4ae7a361109';
+String _$metaDataFunctionsHash() => r'10c3f7ed159adb4898f6f824fb2ffbd0b4d32bdd';
 
-/// See also [startUpRefresh].
-@ProviderFor(startUpRefresh)
-final startUpRefreshProvider = AutoDisposeFutureProvider<void>.internal(
-  startUpRefresh,
-  name: r'startUpRefreshProvider',
+/// See also [MetaDataFunctions].
+@ProviderFor(MetaDataFunctions)
+final metaDataFunctionsProvider =
+    AutoDisposeAsyncNotifierProvider<MetaDataFunctions, void>.internal(
+  MetaDataFunctions.new,
+  name: r'metaDataFunctionsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$startUpRefreshHash,
+      : _$metaDataFunctionsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef StartUpRefreshRef = AutoDisposeFutureProviderRef<void>;
+typedef _$MetaDataFunctions = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
