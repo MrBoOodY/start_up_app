@@ -88,7 +88,7 @@ class Utils {
   }
 
 // custom Network dialog
-  showNetworkDialog({bool isLoading = false}) {
+  showNetworkDialog({required Function() tryAgainMethod}) {
     ScaffoldMessenger.of(context).clearSnackBars();
     showEnhancedDialog(
       dialogName: AppLocalizations.of(context)!.network_failure,
@@ -122,6 +122,7 @@ class Utils {
                             hideCustomDialog(
                                 name: AppLocalizations.of(context)!
                                     .network_failure);
+                            tryAgainMethod();
                           },
                           child: CustomText(
                             AppLocalizations.of(context)!.continue_,
@@ -238,10 +239,7 @@ class Utils {
         logger.e(failure.message);
 
         break;
-      case ConnectionFailure:
-        showNetworkDialog();
 
-        break;
       case UnAuthorizedFailure:
         ref.read(authProvider.notifier).resetUser();
         showErrorToast(AppLocalizations.of(context)!.un_auth_message);
