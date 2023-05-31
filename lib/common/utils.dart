@@ -88,7 +88,8 @@ class Utils {
   }
 
 // custom Network dialog
-  showNetworkDialog({required Function() tryAgainMethod}) {
+  showNetworkDialog(
+      {required Function() tryAgainMethod, bool isDismissible = true}) {
     ScaffoldMessenger.of(context).clearSnackBars();
     showEnhancedDialog(
       dialogName: AppLocalizations.of(context)!.network_failure,
@@ -97,9 +98,11 @@ class Utils {
         builder: (ctx) {
           return WillPopScope(
             onWillPop: () async {
-              hideCustomDialog(
-                  name: AppLocalizations.of(context)!.network_failure);
-              return false;
+              if (isDismissible) {
+                _allDialogs
+                    .remove(AppLocalizations.of(context)!.network_failure);
+              }
+              return isDismissible;
             },
             child: AlertDialog(
               content: Column(

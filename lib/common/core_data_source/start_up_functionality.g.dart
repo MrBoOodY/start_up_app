@@ -22,7 +22,7 @@ final startUpFunctionalityProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef StartUpFunctionalityRef = AutoDisposeFutureProviderRef<void>;
-String _$metaDataFunctionsHash() => r'10c3f7ed159adb4898f6f824fb2ffbd0b4d32bdd';
+String _$metaDataFunctionsHash() => r'f57bf5522f64c20aba94194fd397f06cccc34b31';
 
 /// See also [MetaDataFunctions].
 @ProviderFor(MetaDataFunctions)
