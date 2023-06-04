@@ -1,17 +1,17 @@
 class ServerException implements Exception {
   final String message;
 
-  ServerException({required this.message});
+  const ServerException({required this.message});
 }
 
 class UnAuthorizedException implements Exception {
-  UnAuthorizedException();
+  const UnAuthorizedException();
 }
 
 class UnVerifiedException implements Exception {
-  UnVerifiedException();
+  const UnVerifiedException();
 }
 
 class DatabaseException implements Exception {
-  DatabaseException();
+  const DatabaseException();
 }

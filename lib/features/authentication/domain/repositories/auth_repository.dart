@@ -48,17 +48,6 @@ abstract class IAuthRepository {
     required int countryId,
   });
 
-  /// Log In With Social Media
-  Future<User> loginWithSocial({
-    required String name,
-    required String phone,
-    required String email,
-    required String password,
-    required int countryId,
-  });
-  Future<String> editProfileName({
-    required String name,
-  });
   Future<String> removeAccount({
     required String password,
   });

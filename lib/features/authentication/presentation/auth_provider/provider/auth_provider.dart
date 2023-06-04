@@ -15,7 +15,7 @@ class Auth extends _$Auth {
   /// clear user
   resetUser() async {
     ref.read(routeUtilsProvider.notifier).goToSignInPage();
-    ref.read(hiveHelperProvider.notifier).resetUser();
+    ref.read(hiveHelperProvider).resetUser();
   }
 
   /// get user

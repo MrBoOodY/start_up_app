@@ -6,13 +6,12 @@ part of 'hive_helper.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiveHelperHash() => r'62af2d5b4969977ac85eb5b0dd12e0b44c8cf635';
+String _$hiveHelperHash() => r'a10656a950e2aceb0de7823c5f0596f1d69b6fc4';
 
-/// See also [HiveHelper].
-@ProviderFor(HiveHelper)
-final hiveHelperProvider =
-    AutoDisposeAsyncNotifierProvider<HiveHelper, HiveState>.internal(
-  HiveHelper.new,
+/// See also [hiveHelper].
+@ProviderFor(hiveHelper)
+final hiveHelperProvider = Provider<HiveHelper>.internal(
+  hiveHelper,
   name: r'hiveHelperProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$hiveHelperHash,
@@ -20,5 +19,5 @@ final hiveHelperProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$HiveHelper = AutoDisposeAsyncNotifier<HiveState>;
+typedef HiveHelperRef = ProviderRef<HiveHelper>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

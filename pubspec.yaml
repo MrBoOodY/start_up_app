@@ -44,6 +44,7 @@ dev_dependencies:
   build_runner: ^2.3.3
   requests_inspector: ^3.0.0 
   json_serializable: ^6.6.1
+  mockito: ^5.4.1
 
 flutter: 
   uses-material-design: true

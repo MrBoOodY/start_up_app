@@ -4,7 +4,6 @@ import 'package:start_up_app/common/core_data_source/exception.dart';
 import 'package:start_up_app/common/core_data_source/flutter_secure_storage_provider.dart';
 import 'package:start_up_app/common/core_data_source/hive/hive_helper.dart';
 import 'package:start_up_app/common/core_data_source/hive/hive_keys.dart';
-import 'package:start_up_app/common/core_data_source/hive/hive_state.dart';
 import 'package:start_up_app/features/authentication/data/models/user/user.dart';
 
 part 'auth_local_data_source.g.dart';
@@ -13,8 +12,7 @@ part 'auth_local_data_source.g.dart';
 IAuthLocalDataSource authLocalDataSource(AuthLocalDataSourceRef ref) =>
     AuthLocalDataSource(
       flutterSecureStorage: ref.read(flutterSecureStorageProvider),
-      hiveHelper: ref.read(hiveHelperProvider.notifier),
-      hiveValues: ref.read(hiveHelperProvider).requireValue,
+      hiveHelper: ref.read(hiveHelperProvider),
     );
 
 abstract class IAuthLocalDataSource {
@@ -32,17 +30,16 @@ abstract class IAuthLocalDataSource {
 class AuthLocalDataSource implements IAuthLocalDataSource {
   final FlutterSecureStorage flutterSecureStorage;
   final HiveHelper hiveHelper;
-  final HiveState hiveValues;
-  AuthLocalDataSource(
-      {required this.flutterSecureStorage,
-      required this.hiveHelper,
-      required this.hiveValues});
+  AuthLocalDataSource({
+    required this.flutterSecureStorage,
+    required this.hiveHelper,
+  });
 
   @override
   User getCurrentUser() {
-    final User? user = hiveValues.getUser;
+    final User? user = hiveHelper.getUser;
     if (user == null) {
-      throw UnAuthorizedException();
+      throw const UnAuthorizedException();
     }
 
     return user;
@@ -52,13 +49,12 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   Future<void> saveCurrentUser({required User userModel}) async {
     try {
       if (userModel.accessToken != null) {
-        hiveHelper.saveUserToken(userModel.accessToken!);
+        flutterSecureStorage.write(
+            key: HiveKeys.instance.token, value: userModel.accessToken!);
       }
-      final userMap = userModel.toJson();
-      userMap['accessToken'] = null;
-      hiveHelper.saveUser(User.fromJson(userMap));
+      hiveHelper.saveUser(userModel);
     } catch (error) {
-      throw DatabaseException();
+      throw const DatabaseException();
     }
   }
 
@@ -76,7 +72,7 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   Future<String> get getUserToken async {
     final token = await flutterSecureStorage.read(key: HiveKeys.instance.token);
     if (token == null) {
-      throw UnAuthorizedException();
+      throw const UnAuthorizedException();
     }
     return token;
   }
@@ -84,5 +80,6 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   @override
   Future<void> logOut() async {
     hiveHelper.resetUser();
+    flutterSecureStorage.delete(key: HiveKeys.instance.token);
   }
 }

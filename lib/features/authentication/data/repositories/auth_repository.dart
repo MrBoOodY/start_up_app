@@ -135,16 +135,6 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<String> editProfileName({required String name}) async {
-    return FailureHelper.instance(() async {
-      final result = await remoteDataSource.updateUserProfile(name: name);
-
-      await localDataSource.saveCurrentUser(userModel: result.result);
-      return result.message;
-    });
-  }
-
-  @override
   Future<void> verifyCode({required int userId, required String code}) async {
     return FailureHelper.instance(() async {
       await remoteDataSource.verifyCode(userId: userId, code: code);
@@ -157,24 +147,6 @@ class AuthRepository implements IAuthRepository {
       final result = await remoteDataSource.removeAccount(
         password: password,
       );
-      return result;
-    });
-  }
-
-  @override
-  Future<User> loginWithSocial(
-      {required String name,
-      required String phone,
-      required String email,
-      required String password,
-      required int countryId}) {
-    return FailureHelper.instance(() async {
-      final result = await remoteDataSource.loginWithSocial(
-          name: name,
-          phone: phone,
-          email: email,
-          password: password,
-          countryId: countryId);
       return result;
     });
   }
