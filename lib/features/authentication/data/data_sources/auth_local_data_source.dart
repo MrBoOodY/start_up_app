@@ -80,5 +80,6 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   @override
   Future<void> logOut() async {
     hiveHelper.resetUser();
+    flutterSecureStorage.delete(key: HiveKeys.instance.token);
   }
 }
