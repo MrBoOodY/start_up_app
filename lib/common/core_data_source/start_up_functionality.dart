@@ -13,7 +13,7 @@ part 'start_up_functionality.g.dart';
 Future<void> startUpFunctionality(StartUpFunctionalityRef ref) async {
   try {
     await Future.wait(<Future<dynamic>>[
-      ref.read(hiveHelperProvider.future),
+      ref.read(hiveHelperProvider).init(),
       SentryService.init(),
     ]);
   } catch (e) {

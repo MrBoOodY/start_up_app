@@ -5,15 +5,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:simple_deal/common/core_data_source/exception.dart';
-import 'package:simple_deal/common/core_data_source/failure.dart';
-import 'package:simple_deal/common/core_data_source/flutter_secure_storage_provider.dart';
-import 'package:simple_deal/common/core_data_source/hive/hive_helper.dart';
-import 'package:simple_deal/common/core_data_source/hive/hive_keys.dart';
-import 'package:simple_deal/features/authentication/data/data_sources/auth_local_data_source.dart';
-import 'package:simple_deal/features/authentication/data/data_sources/auth_remote_data_source.dart';
-import 'package:simple_deal/features/authentication/data/models/user/user.dart';
-import 'package:simple_deal/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:start_up_app/common/core_data_source/exception.dart';
+import 'package:start_up_app/common/core_data_source/failure.dart';
+import 'package:start_up_app/common/core_data_source/flutter_secure_storage_provider.dart';
+import 'package:start_up_app/common/core_data_source/hive/hive_helper.dart';
+import 'package:start_up_app/common/core_data_source/hive/hive_keys.dart';
+import 'package:start_up_app/features/authentication/data/data_sources/auth_local_data_source.dart';
+import 'package:start_up_app/features/authentication/data/data_sources/auth_remote_data_source.dart';
+import 'package:start_up_app/features/authentication/data/models/user/user.dart';
+import 'package:start_up_app/features/authentication/domain/repositories/auth_repository.dart';
 
 import 'authentication_repository_test.mocks.dart';
 
@@ -46,19 +46,18 @@ void main() {
   group('Auth repository Sign In tests', () {
     Future<User> whenSignInMethod() async => await container
         .read(authRemoteDataSourceProvider)
-        .signIn(password: '123123', phoneNumber: '1231231231');
+        .signIn(password: '123123', email: 'a@a.com');
     Future<void> actualSignInMethod() async => await authRepository.signIn(
-        password: '123123', phoneNumber: '1231231231');
+        password: '123123', email: 'a@a.com', countryId: 1);
     const resultUser =
-        User(token: 'sadfsd', telPhone: '1231231231', userName: 'userName');
+        User(accessToken: 'sadfsd', phone: '1231231231', name: 'userName');
     test('Sign in success with token', () async {
       when(whenSignInMethod()).thenAnswer((_) async => resultUser);
       when(container.read(hiveHelperProvider).saveUser(resultUser)).thenAnswer(
         (realInvocation) => null,
       );
-      when(container
-              .read(flutterSecureStorageProvider)
-              .write(key: HiveKeys.instance.token, value: resultUser.token))
+      when(container.read(flutterSecureStorageProvider).write(
+              key: HiveKeys.instance.token, value: resultUser.accessToken))
           .thenAnswer(
         (_) async {},
       );
@@ -66,30 +65,29 @@ void main() {
 
       verify(container
           .read(flutterSecureStorageProvider)
-          .write(key: HiveKeys.instance.token, value: resultUser.token));
+          .write(key: HiveKeys.instance.token, value: resultUser.accessToken));
 
       verify(container.read(hiveHelperProvider)..saveUser(resultUser));
 
       expect(() => result, isA<void>());
     });
     test('Sign in success without token', () async {
-      const userWithoutToken =
-          User(telPhone: '1231231231', userName: 'userName');
+      const userWithoutToken = User(phone: '1231231231', name: 'asdf');
       when(whenSignInMethod()).thenAnswer((_) async => userWithoutToken);
       when(container.read(hiveHelperProvider).saveUser(userWithoutToken))
           .thenAnswer(
         (realInvocation) => null,
       );
       when(container.read(flutterSecureStorageProvider).write(
-              key: HiveKeys.instance.token, value: userWithoutToken.token))
+              key: HiveKeys.instance.token,
+              value: userWithoutToken.accessToken))
           .thenAnswer(
         (_) async {},
       );
       final result = await actualSignInMethod();
 
-      verifyNever(container
-          .read(flutterSecureStorageProvider)
-          .write(key: HiveKeys.instance.token, value: userWithoutToken.token));
+      verifyNever(container.read(flutterSecureStorageProvider).write(
+          key: HiveKeys.instance.token, value: userWithoutToken.accessToken));
 
       verify(container.read(hiveHelperProvider)..saveUser(userWithoutToken));
 
@@ -129,23 +127,20 @@ void main() {
   group('Auth repository Sign Up tests', () {
     Future<String> whenSignUpMethod() async =>
         await container.read(authRemoteDataSourceProvider).signUpUser(
-              addressId: '1',
-              lat: 1,
-              lng: 1,
+              countryId: 1,
+              email: 'a@a.com',
               password: '123123',
-              phoneNumber: '1231231231',
-              secretCode: '1223',
-              userName: 'userName',
+              confirmPassword: '123123',
+              phone: '1231231231',
+              name: 'userName',
             );
-    Future<String> actualSignUpMethod() async =>
-        await authRepository.signUpUser(
-          addressId: '1',
-          lat: 1,
-          lng: 1,
+    Future<String> actualSignUpMethod() async => await authRepository.signUp(
+          countryId: 1,
+          email: 'a@a.com',
           password: '123123',
-          phoneNumber: '1231231231',
-          secretCode: '1223',
-          userName: 'userName',
+          confirmPassword: '123123',
+          phone: '1231231231',
+          name: 'userName',
         );
     test('Sign Up success', () async {
       when(whenSignUpMethod())
@@ -189,9 +184,8 @@ void main() {
   });
   group('Auth repository Get Current User tests', () {
     User? whenGetUserMethod() => container.read(hiveHelperProvider).getUser;
-    Future<User> actualGetUserMethod() async =>
-        await authRepository.getCurrentUser();
-    const resultUser = User(telPhone: '1231231231', userName: 'userName');
+    Future<User> actualGetUserMethod() async => authRepository.getCurrentUser();
+    const resultUser = User(phone: '1231231231', name: 'userName');
 
     test('Get Current User success', () async {
       when(whenGetUserMethod()).thenAnswer((_) => resultUser);

@@ -7,7 +7,7 @@ part of 'start_up_functionality.dart';
 // **************************************************************************
 
 String _$startUpFunctionalityHash() =>
-    r'dbb0b9e5e06db116949188e2a34592d84962c632';
+    r'cae9558149d3842074a026442c925d5e52423349';
 
 /// See also [startUpFunctionality].
 @ProviderFor(startUpFunctionality)

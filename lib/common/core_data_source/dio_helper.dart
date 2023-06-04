@@ -151,10 +151,10 @@ class DioHelper {
       }
 
       if (result['statusCode'] == AppStrings.instance.unAuthorizedStatusCode) {
-        throw UnAuthorizedException();
+        throw const UnAuthorizedException();
       } else if (result['statusCode'] ==
           AppStrings.instance.unVerifiedStatusCode) {
-        throw UnVerifiedException();
+        throw const UnVerifiedException();
       } else {
         late final String errorMessage;
         if (result['message'] is List) {
@@ -175,10 +175,10 @@ class DioHelper {
       logger.wtf(StackTrace.current);
 
       if (response.statusCode == AppStrings.instance.unAuthorizedStatusCode) {
-        throw UnAuthorizedException();
+        throw const UnAuthorizedException();
       } else if (response.statusCode ==
           AppStrings.instance.unVerifiedStatusCode) {
-        throw UnVerifiedException();
+        throw const UnVerifiedException();
       } else {
         late final String errorMessage;
         if (responseBody['message'] is List) {

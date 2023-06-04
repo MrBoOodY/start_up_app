@@ -1,45 +1,134 @@
+import 'dart:convert';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:start_up_app/features/authentication/data/models/user/user.dart';
 
 import 'hive_keys.dart';
-import 'hive_state.dart';
 
 part 'hive_helper.g.dart';
 
-@riverpod
-class HiveHelper extends _$HiveHelper {
-  Future<HiveState> _init() async {
+@Riverpod(keepAlive: true)
+HiveHelper hiveHelper(HiveHelperRef ref) {
+  return HiveHelper();
+}
+
+class HiveHelper {
+  late final Box<String> _userBox;
+  late final Box<bool> _darkModeBox;
+  late final Box<bool> _onBoardingBox;
+  late final Box<String> _languageBox;
+
+  Future<void> init() async {
     await Hive.initFlutter();
-    Future.wait(<Future<dynamic>>[
-      Hive.openBox<User>(HiveKeys.instance.currentUser),
-      Hive.openBox<String>(HiveKeys.instance.token),
+    await Future.wait(<Future<dynamic>>[
+      Hive.openBox<String>(HiveKeys.instance.currentUser),
       Hive.openBox<bool>(HiveKeys.instance.darkMode),
+      Hive.openBox<bool>(HiveKeys.instance.onBoardingFinished),
+      Hive.openBox<String>(HiveKeys.instance.language),
     ]);
-    return HiveState(
-      userBox: Hive.box(HiveKeys.instance.currentUser),
-      userTokenBox: Hive.box<String>(HiveKeys.instance.token),
-      darkModeBox: Hive.box<bool>(HiveKeys.instance.darkMode),
-    );
+    _userBox = Hive.box(HiveKeys.instance.currentUser);
+    _darkModeBox = Hive.box<bool>(HiveKeys.instance.darkMode);
+    _onBoardingBox = Hive.box<bool>(HiveKeys.instance.onBoardingFinished);
+    _languageBox = Hive.box<String>(HiveKeys.instance.language);
   }
 
-  @override
-  FutureOr<HiveState> build() => _init();
+/*
+*
+*
+User Start Section 
+*
+*
+*/
 
-  saveUserToken(String userToken) {
-    state.value!.userTokenBox?.put(HiveKeys.instance.token, userToken);
+  User? get getUser {
+    final userJson = _userBox.get(HiveKeys.instance.currentUser);
+    if (userJson == null) return null;
+    return User.fromJson(jsonDecode(userJson));
   }
 
   saveUser(User user) {
-    state.value!.userBox?.put(HiveKeys.instance.currentUser, user);
+    _userBox.put(HiveKeys.instance.currentUser, jsonEncode(user.toJson()));
   }
 
   void resetUser() {
-    state.value!.userBox?.delete(HiveKeys.instance.currentUser);
-    state.value!.userTokenBox?.delete(HiveKeys.instance.token);
+    _userBox.delete(HiveKeys.instance.currentUser);
+  }
+
+/*
+*
+*
+User End Section 
+*
+*
+*/
+
+/*
+*
+*
+Theme Mode Start Section 
+*
+*
+*/
+  bool get isDarkMode {
+    return _darkModeBox.get(HiveKeys.instance.darkMode) ?? false;
   }
 
   setDarkMode(bool isDark) {
-    state.value!.darkModeBox?.put(HiveKeys.instance.darkMode, isDark);
+    _darkModeBox.put(HiveKeys.instance.darkMode, isDark);
   }
+
+/*
+*
+*
+Theme Mode End Section 
+*
+*
+*/
+
+/*
+*
+*
+On Boarding Start Section 
+*
+*
+*/
+  bool get isOnBoardingFinished {
+    return _onBoardingBox.get(HiveKeys.instance.onBoardingFinished) ?? false;
+  }
+
+  setOnBoardingFinished() {
+    _onBoardingBox.put(HiveKeys.instance.onBoardingFinished, true);
+  }
+
+/*
+*
+*
+On Boarding End Section 
+*
+*
+*/
+
+/*
+*
+*
+Language Start Section 
+*
+*
+*/
+  String get getLanguage {
+    return _languageBox.get(HiveKeys.instance.language) ?? 'ar';
+  }
+
+  set setLanguage(String lang) {
+    _languageBox.put(HiveKeys.instance.language, lang);
+  }
+
+/*
+*
+*
+Language End Section 
+*
+*
+*/
 }
