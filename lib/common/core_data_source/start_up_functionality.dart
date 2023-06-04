@@ -28,16 +28,19 @@ class MetaDataFunctions extends _$MetaDataFunctions {
     final providers = <AlwaysAliveProviderListenable<AsyncValue<Object?>>>[];
 
     for (var provider in providers) {
+// ignore: avoid_manual_providers_as_generated_provider_dependency
       final providerState = ref.watch(provider);
       if (providerState.isLoading) {
         state = const AsyncLoading();
       } else if (providerState.hasError) {
         if (providerState.error is ConnectionFailure) {
-          ref.read(utilsProvider).showNetworkDialog(tryAgainMethod: () {
-            ref.invalidate(provider as ProviderOrFamily);
+          ref.read(utilsProvider).showNetworkDialog(
+              isDismissible: false,
+              tryAgainMethod: () {
+                ref.invalidate(provider as ProviderOrFamily);
 
-            build();
-          });
+                build();
+              });
           return;
         } else {
           providerState.error!.handleExceptions(ref);
