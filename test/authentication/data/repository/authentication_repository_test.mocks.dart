@@ -147,41 +147,6 @@ class MockIAuthRemoteDataSource extends _i1.Mock
         returnValue: _i6.Future<String>.value(''),
       ) as _i6.Future<String>);
   @override
-  _i6.Future<_i2.User> loginWithSocial({
-    required String? name,
-    required String? phone,
-    required String? email,
-    required String? password,
-    required int? countryId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #loginWithSocial,
-          [],
-          {
-            #name: name,
-            #phone: phone,
-            #email: email,
-            #password: password,
-            #countryId: countryId,
-          },
-        ),
-        returnValue: _i6.Future<_i2.User>.value(_FakeUser_0(
-          this,
-          Invocation.method(
-            #loginWithSocial,
-            [],
-            {
-              #name: name,
-              #phone: phone,
-              #email: email,
-              #password: password,
-              #countryId: countryId,
-            },
-          ),
-        )),
-      ) as _i6.Future<_i2.User>);
-  @override
   _i6.Future<_i2.User> signIn({
     required String? email,
     required String? password,

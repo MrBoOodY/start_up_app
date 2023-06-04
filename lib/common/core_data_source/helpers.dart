@@ -50,5 +50,5 @@ class SuccessResult<T> {
   final String message;
   final T result;
 
-  SuccessResult({required this.message, required this.result});
+  const SuccessResult({required this.message, required this.result});
 }

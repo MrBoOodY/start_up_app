@@ -23,15 +23,6 @@ abstract class IAuthRemoteDataSource {
     required int countryId,
   });
 
-  /// Log In With Social Media
-  Future<User> loginWithSocial({
-    required String name,
-    required String phone,
-    required String email,
-    required String password,
-    required int countryId,
-  });
-
   Future<User> signIn({
     required String email,
     required String password,
@@ -221,24 +212,6 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
         'password': password,
       });
       return response['message'];
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<User> loginWithSocial(
-      {required String name,
-      required String phone,
-      required String email,
-      required String password,
-      required int countryId}) async {
-    try {
-      final response = await dio.doPostRequest(url: Urls.socialLogin);
-      final Map<String, dynamic> user = response['data'];
-
-      return User.fromJson(
-          user..addAll({'accessToken': response['accessToken']}));
     } catch (error) {
       rethrow;
     }
